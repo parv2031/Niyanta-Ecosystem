@@ -21,23 +21,23 @@ The ecosystem relies on an event-driven **Pub/Sub architecture** to prevent bott
 ```mermaid
 graph TD;
     subgraph Orchestration Layer
-        TakshakDB[(TakshakDB<br>Custom C++ In-Memory DB)]
+        TakshakDB[("TakshakDB<br>Custom C++ In-Memory DB")]
     end
 
     subgraph Autonomous RL Agent
-        RL[Python SAC Training Loop] <-->|ZeroMQ TCP| Sim[C++ Power Grid Simulator]
-        RL -->|Publish Metrics| TakshakDB
+        RL["Python SAC Training Loop"] <-->|"ZeroMQ TCP"| Sim["C++ Power Grid Simulator"]
+        RL -->|"Publish Metrics"| TakshakDB
     end
 
     subgraph Autonomous Robotics
-        AMR[ROS 2 Humble Nav2] -->|Publish Odom / LaserScan| TakshakDB
+        AMR["ROS 2 Humble Nav2"] -->|"Publish Odom / LaserScan"| TakshakDB
     end
 
     subgraph Command Center UI
-        Next[Next.js Dashboard]
-        Chess[C WASM Chess Engine] -->|Cache Evaluations| TakshakDB
+        Next["Next.js Dashboard"]
+        Chess["C WASM Chess Engine"] -->|"Cache Evaluations"| TakshakDB
         Next --> Chess
-        TakshakDB -->|Server-Sent Events (SSE)| Next
+        TakshakDB -->|"Server-Sent Events"| Next
     end
 ```
 
