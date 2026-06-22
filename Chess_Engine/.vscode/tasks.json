@@ -1,0 +1,21 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "build",
+            "type": "shell",
+            "command": "sh",
+            "args": [
+                "-c",
+                "gcc -o ${workspaceFolder}/build/myapp ${workspaceFolder}/src/main.c $(pkg-config --cflags gtk+-3.0) $(pkg-config --libs gtk+-3.0)"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": [
+                "$gcc"
+            ]
+        }
+    ]
+}

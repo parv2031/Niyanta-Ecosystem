@@ -1,0 +1,56 @@
+services:
+  takshak_db:
+    build:
+      context: ./TakshakDB
+      dockerfile: Dockerfile
+    container_name: takshak_db
+    ports:
+      # Only mapping to localhost so it isn't exposed to the public internet on the VPS
+      - "127.0.0.1:6379:6379"
+    volumes:
+      - takshak_data:/app/data
+    restart: unless-stopped
+
+  niyanta_web:
+    build:
+      context: ./Niyanta
+      dockerfile: Dockerfile
+    container_name: niyanta_web
+    environment:
+      - TAKSHAK_HOST=takshak_db
+    ports:
+      - "3000:3000"
+    depends_on:
+      - takshak_db
+    restart: unless-stopped
+
+  rl_power_grid:
+    build:
+      context: ./AutonomousPowerGrid
+      dockerfile: Dockerfile
+    container_name: rl_power_grid
+    environment:
+      - TAKSHAK_HOST=takshak_db
+    depends_on:
+      - takshak_db
+    restart: unless-stopped
+
+  ros2_amr_sim:
+    build:
+      context: ./assignment_ws
+      dockerfile: Dockerfile
+    container_name: ros2_amr_sim
+    environment:
+      - TAKSHAK_HOST=takshak_db
+    depends_on:
+      - takshak_db
+    # To use more resources if needed
+    deploy:
+      resources:
+        limits:
+          cpus: '2.0'
+          memory: 4G
+    restart: unless-stopped
+
+volumes:
+  takshak_data:

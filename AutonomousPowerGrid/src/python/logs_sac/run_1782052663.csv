@@ -1,0 +1,2 @@
+episode,total_reward,steps,overloads_total,max_severity,avg_util_mean,power_shed_est,alpha,critic_loss_mean,actor_loss_mean,total_steps
+1,21448.25,8759,115835,15.3063,0.3275,8749338.4,1.00000,0.000000,0.000000,8759

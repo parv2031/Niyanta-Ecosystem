@@ -1,0 +1,58 @@
+# AMCL (Adaptive Monte Carlo Localization) configuration
+# This section defines parameters used by the nav2_amcl node
+# AMCL is responsible for estimating the robot's pose on the map
+# using a particle filter based on laser scan observations and odometry.
+
+amcl:
+  ros__parameters:
+
+    # Enables simulation time instead of system clock.
+    # Required when running Gazebo or other simulators because they publish /clock.
+    use_sim_time: true
+
+    # Automatically set the initial pose on startup to skip manual RViz initialization.
+    set_initial_pose: true
+    initial_pose:
+      x: 0.0
+      y: 0.0
+      z: 0.0
+      yaw: 0.0
+
+    # Topic from which AMCL receives laser scan data.
+    # The laser scans are used to compare expected vs observed obstacles in the map
+    # to update particle weights during localization.
+    scan_topic: scan
+
+    # The robot base frame used by the navigation stack.
+    # This is the frame attached to the robot's base.
+    # AMCL estimates the pose of this frame relative to the map.
+    base_frame_id: base_link
+
+    # Frame representing odometry.
+    # This frame comes from wheel odometry or simulated odometry in Gazebo.
+    # AMCL uses this as the motion model input for particle prediction.
+    odom_frame_id: odom
+
+    # Global reference frame for localization.
+    # The robot pose is ultimately estimated relative to the map frame.
+    # AMCL publishes the transform: map → odom.
+    global_frame_id: map
+
+    # Minimum number of particles used in the particle filter.
+    # More particles increase localization accuracy but require more computation.
+    min_particles: 500
+
+    # Maximum number of particles allowed in the particle filter.
+    # AMCL dynamically adjusts the particle count between min_particles and max_particles
+    # depending on localization uncertainty.
+    max_particles: 2000
+
+    # Minimum translational movement required before the filter updates.
+    # This prevents unnecessary updates when the robot has barely moved.
+    # Value is in meters.
+    update_min_d: 0.25
+
+    # Minimum rotational movement required before updating the filter.
+    # Helps reduce computation when the robot rotates very slightly.
+    # Value is in radians.
+    update_min_a: 0.2
