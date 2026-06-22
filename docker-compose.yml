@@ -37,7 +37,7 @@ services:
 
   ros2_amr_sim:
     build:
-      context: ./assignment_ws
+      context: ./AutonomousNavigation
       dockerfile: Dockerfile
     container_name: ros2_amr_sim
     environment:

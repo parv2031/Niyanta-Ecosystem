@@ -57,7 +57,7 @@ Niyanta is composed of five distinct, containerized microservices:
 * **Tech Stack:** C++ (Raylib), Python (PyTorch, Stable Baselines 3, Gymnasium), ZeroMQ.
 * **Features:** A C++ graph physics simulator bridges to a Python SAC (Soft Actor-Critic) agent via ZeroMQ. The agent calculates power distribution for 8,760 hours (1 year) per episode, publishing live rewards to TakshakDB.
 
-### 3. ROS 2 AMR Simulator (`/assignment_ws`)
+### 3. ROS 2 AMR Simulator (`/AutonomousNavigation`)
 * **Role:** Autonomous Mobile Robot navigation and mapping.
 * **Tech Stack:** ROS 2 (Humble), Nav2, Gazebo, Python `rclpy`.
 * **Features:** Runs a headless Gazebo simulation of an AMR. A custom Python bridge node (`takshak_bridge.py`) subscribes to `/odom` and `/scan` topics, formatting and broadcasting the data to TakshakDB in real-time.
